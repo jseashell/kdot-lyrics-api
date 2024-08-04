@@ -1,12 +1,12 @@
 # KDot Info API
 
-Golang service that serves as an HTTP API for KDot info.
+Golang service that serves as an HTTP API for [K.info](https://k.info).
 
 ## Install
 
 ```sh
-git clone git@github.com:jseashell/kdot-info.git
-cd kdot-info
+git clone git@github.com:jseashell/kdot-info-api.git
+cd kdot-info-api
 make
 ```
 
@@ -16,22 +16,13 @@ make
 
 ### /random
 
-Fetches a random Kendrick Lamar song from DynamoDB
+Fetches a random Kendrick Lamar song from DynamoDB.
 
 ```sh
-curl https://<api-id>.execute-api.us-east-1.amazonaws.com/random
+curl https://<api-id>.execute-api.us-east-1.amazonaws.com/random-song
 
 # TODO response
 ```
-
-## Deploy
-
-1. [Configure the AWS CLI](https://docs.aws.amazon.com/cli/latest/userguide/cli-chap-configure.html) on your local workstation.
-1. Run the deploy script
-
-    ```sh
-    make deploy
-    ```
 
 ## 3rd party libraries
 
