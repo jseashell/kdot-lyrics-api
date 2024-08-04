@@ -17,7 +17,7 @@ jobs:
       - name: Build
         run: make build
       - name: Package
-        run: zip -r bootstrap.zip bootstrap                             
+        run: zip bootstrap.zip bootstrap                             
       - name: Configure AWS Credentials
         uses: aws-actions/configure-aws-credentials@v4
         with:
