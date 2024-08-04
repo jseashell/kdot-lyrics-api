@@ -1,0 +1,29 @@
+name: Pipeline
+run-name: ${{ github.event.head_commit.message }}
+on: [push]
+
+jobs:
+  Pipeline:
+    name: Deploy
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Project
+        uses: actions/checkout@v4
+      - name: Setup Serverless
+        run: |
+          npm i -g serverless@3 --silent
+      - name: Setup zip
+        uses: montudor/action-zip@v1
+      - name: Build
+        run: make build
+      - name: Package
+        run: zip -r bootstrap.zip bootstrap
+        working-directory: api                                            
+      - name: Configure AWS Credentials
+        uses: aws-actions/configure-aws-credentials@v4
+        with:
+          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          aws-region: us-east-1
+      - name: Serverless Deploy
+        run: serverless deploy --stage main --verbose

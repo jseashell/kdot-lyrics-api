@@ -1,0 +1,33 @@
+service: kdot-info-api
+
+provider:
+  name: aws
+  runtime: provided.al2023
+  region: us-east-1
+  httpApi:
+    cors: true
+  logs:
+    httpApi: true
+  iam:
+   role:
+     statements:
+       - Effect: "Allow"
+         Action:
+          - "dynamodb:GetItem"
+          - "dynamodb:Scan"
+         Resource:
+          - "arn:aws:dynamodb:*:*:table/kdot-songs-main"
+
+package:
+  individually: true
+  patterns:
+    - '!./**'
+    - ./bootstrap/**
+
+functions:
+  random_song:
+    handler: bootstrap/main
+    events:
+      - httpApi:
+          path: /random-song
+          method: get
