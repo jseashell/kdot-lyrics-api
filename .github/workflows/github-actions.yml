@@ -9,20 +9,24 @@ jobs:
     steps:
       - name: Checkout Project
         uses: actions/checkout@v4
+
       - name: Setup Serverless
-        run: |
-          npm i -g serverless@3 --silent
-      - name: Setup zip
-        uses: montudor/action-zip@v1
+        run: npm i -g serverless@3 --silent
+
       - name: Build
         run: make build
-      - name: Package
-        run: zip bootstrap.zip bootstrap                             
+
+      - name: Package handler
+        uses: montudor/action-zip@v1
+        with:
+          args: zip -qq handler.zip bootstrap
+
       - name: Configure AWS Credentials
         uses: aws-actions/configure-aws-credentials@v4
         with:
           aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
           aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
           aws-region: us-east-1
+
       - name: Serverless Deploy
         run: serverless deploy --stage main --verbose

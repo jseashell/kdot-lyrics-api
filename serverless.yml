@@ -22,7 +22,7 @@ package:
   individually: true
   patterns:
     - '!./**'
-    - ./bin/**
+    - ./bootstrap
 
 functions:
   random_song:
