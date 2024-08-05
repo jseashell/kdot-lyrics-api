@@ -68,7 +68,17 @@ func randomSong() Data {
 	attributevalue.UnmarshalMap(res.Items[0], randomSong)
 
 	data := Data{
-		ID: randomSong.ID,
+		ID:     randomSong.ID,
+		Lyrics: randomSong.Lyrics,
+		Album: Album{
+			APIPath:               randomSong.Song.Album.APIPath,
+			CoverArtURL:           randomSong.Song.Album.CoverArtURL,
+			FullTitle:             randomSong.Song.Album.FullTitle,
+			ID:                    randomSong.Song.Album.ID,
+			Name:                  randomSong.Song.Album.Name,
+			ReleaseDateForDisplay: randomSong.Song.Album.ReleaseDateForDisplay,
+			URL:                   randomSong.Song.Album.URL,
+		},
 		Song: Song{
 			ArtistNames:              randomSong.Song.ArtistNames,
 			FullTitle:                randomSong.Song.FullTitle,
@@ -83,7 +93,6 @@ func randomSong() Data {
 			Title:                    randomSong.Song.Title,
 			URL:                      randomSong.Song.URL,
 		},
-		Lyrics: randomSong.Lyrics,
 	}
 
 	return data
@@ -107,8 +116,10 @@ type Response events.APIGatewayProxyResponse
 type Data struct {
 	ID     string   `json:"id"`
 	Song   Song     `json:"song"`
+	Album  Album    `json:"album"`
 	Lyrics []string `json:"lyrics"`
 }
+
 type Song struct {
 	ArtistNames              string `json:"artist_names"`
 	FullTitle                string `json:"full_title"`
@@ -122,6 +133,16 @@ type Song struct {
 	SongArtImageURL          string `json:"song_art_image_url"`
 	Title                    string `json:"title"`
 	URL                      string `json:"url"`
+}
+
+type Album struct {
+	APIPath               string `json:"api_path"`
+	CoverArtURL           string `json:"cover_art_url"`
+	FullTitle             string `json:"full_title"`
+	ID                    int    `json:"id"`
+	Name                  string `json:"name"`
+	ReleaseDateForDisplay string `json:"release_date_for_display"`
+	URL                   string `json:"url"`
 }
 
 type RandomSong struct {
@@ -139,6 +160,15 @@ type RandomSong struct {
 		SongArtImageURL          string `dynamodbav:"SongArtImageURL"`
 		Title                    string `dynamodbav:"Title"`
 		URL                      string `dynamodbav:"URL"`
+		Album                    struct {
+			APIPath               string `dynamodbav:"APIPath"`
+			CoverArtURL           string `dynamodbav:"CoverArtURL"`
+			FullTitle             string `dynamodbav:"FullTItle"`
+			ID                    int    `dynamodbav:"ID"`
+			Name                  string `dynamodbav:"Name"`
+			ReleaseDateForDisplay string `dynamodbav:"ReleaseDateForDisplay"`
+			URL                   string `dynamodbav:"URL"`
+		} `dynamodbav:"Album"`
 	} `dynamodbav:"Song"`
 	Lyrics []string `dynamodbav:"Lyrics"`
 }
