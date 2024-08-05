@@ -1,4 +1,4 @@
-module kdot-info-service
+module kdot-lyrics-service
 
 go 1.22.5
 

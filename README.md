@@ -1,12 +1,12 @@
 # KDot Info API
 
-Golang service that serves as an HTTP API for [K.info](https://k.info).
+Golang service that serves as an HTTP API for [K. Lyrics](https://kdotlyrics.com).
 
 ## Install
 
 ```sh
-git clone git@github.com:jseashell/kdot-info-api.git
-cd kdot-info-api
+git clone git@github.com:jseashell/kdot-lyrics-api.git
+cd kdot-lyrics-api
 make
 ```
 

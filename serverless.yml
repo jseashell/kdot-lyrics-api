@@ -1,4 +1,4 @@
-service: kdot-info-api
+service: kdot-lyrics-api
 
 provider:
   name: aws
