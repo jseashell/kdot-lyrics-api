@@ -1,4 +1,4 @@
-# KDot Info API
+# K. Lyrics API
 
 Golang service that serves as an HTTP API for [K. Lyrics](https://kdotlyrics.com).
 
